@@ -11,8 +11,8 @@ non_primary:
 	b non_primary // other core, take a break
 
 primary:
-	ldr x0, bss_begin
-	ldr x1, bss_end
+	ldr x0, =bss_begin // = will load address
+	ldr x1, =bss_end
 	sub x1, x1, x0 // end - begin = size of bss
 	bl memzero
 
