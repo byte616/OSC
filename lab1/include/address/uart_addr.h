@@ -1,5 +1,5 @@
-#ifndef UART_ADDR
-#define UART_ADDR
+#ifndef UART_ADDR_H
+#define UART_ADDR_H
 #include "base_addr.h"
 
 // must use volatile, avoiding compiler optimize access 
