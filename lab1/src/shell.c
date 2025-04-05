@@ -26,9 +26,9 @@ void cmd_mailbox() {
 // TODO
 void cmd_reboot() {
 	uart_sendstr("Rebooting...\n");
- 	*PM_WDOG = PM_PASSWORD | 600; // set tick
-    *PM_RSTC = PM_PASSWORD | PM_RSTC_FULLRST; // reboot
-    while (1); // wait for reboot, do not execute other inst.
+	*PM_WDOG = PM_PASSWORD | 600; // set tick
+	*PM_RSTC = PM_PASSWORD | PM_RSTC_FULLRST; // reboot
+	while (1); // wait for reboot, do not execute other inst.
 }
 
 void read_command(char *str) {
