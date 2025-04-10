@@ -4,6 +4,15 @@
 #define BUFFER_SIZE 1024
 char buffer[BUFFER_SIZE];
 
+// command table
+struct command cmd[4] = {
+	{.cmdname = "help", .info = "print this help menu", .func = cmd_help},
+	{.cmdname = "hello", .info = "print Hello World!", .func = cmd_hello},
+	{.cmdname = "mailbox", .info = "print hardware's infomation", .func = cmd_mailbox},
+	{.cmdname = "reboot", .info = "reboot the device", .func = cmd_reboot}
+};
+
+
 //  support cmd
 void cmd_help() {
 	for(int i = 0; i < CMD_NUM; i++) {
