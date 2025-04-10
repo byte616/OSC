@@ -44,11 +44,12 @@ void read_command(char *str) {
 	int idx = 0;
 	while(idx < BUFFER_SIZE) {
 		buffer[idx] = uart_recv();
-		uart_send(buffer[idx]);
 		if(buffer[idx] == '\n') {
+			uart_sendstr("\n"); // sendstr will add '\r'
 			buffer[idx] = '\0';
 			break;
 		}
+		uart_send(buffer[idx]);
 		idx += 1;
 	}
 }
