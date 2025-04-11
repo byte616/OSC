@@ -1,7 +1,8 @@
 #ifndef BASE_ADDR_H
 #define BASE_ADDR_H
 
-#define MMIO_BASE 0x3F000000
+#define MMIO_BASE     0x3F000000
+#define MAILBOX_BASE  MMIO_BASE + 0xb880
 
 // reboot
 #define PM_RSTC         ((volatile unsigned int*)(MMIO_BASE + 0x0010001C))

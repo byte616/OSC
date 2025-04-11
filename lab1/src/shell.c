@@ -1,5 +1,6 @@
 #include "shell.h"
 #include "utils.h"
+#include "mailbox.h"
 
 #define BUFFER_SIZE 1024
 char buffer[BUFFER_SIZE];
@@ -27,12 +28,12 @@ void cmd_hello() {
 	uart_sendstr("Hello World!\n");
 }
 
-// TODO
 void cmd_mailbox() {
-
+	uart_sendstr("Mailbox info:\n");
+	get_board_revision();		
+	get_arm_baseaddr();
 }
 
-// TODO
 void cmd_reboot() {
 	uart_sendstr("Rebooting...\n");
 	*PM_WDOG = PM_PASSWORD | 600; // set tick
