@@ -20,3 +20,13 @@ void uint2hexstr(char *output, unsigned int num) {
 	output[10] = '\n';
 	output[11] = '\0';
 }
+
+void set(long addr, unsigned int value) {
+    volatile unsigned int* point = (unsigned int*)addr;
+    *point = value;
+}
+
+void reset(int tick) {                 // reboot after watchdog timer expire
+    set(PM_RSTC, PM_PASSWORD | 0x20);  // full reset
+    set(PM_WDOG, PM_PASSWORD | tick);  // number of watchdog tick
+}
