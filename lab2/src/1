@@ -43,18 +43,20 @@ void cmd_reboot() {
 void read_command(char *str) {
 	int idx = 0;
 	while(idx < BUFFER_SIZE) {
-		str[idx] = uart_recv();
-		if(str[idx] == '\n') {
+		buffer[idx] = uart_recv();
+		if(buffer[idx] == '\n') {
 			uart_sendstr("\n"); // sendstr will add '\r'
-			str[idx] = '\0';
+			buffer[idx] = '\0';
 			break;
 		}
-		uart_send(str[idx]);
+		uart_send(buffer[idx]);
 		idx += 1;
 	}
 }
 
 void parse_command(char *str) {
+	uart_sendstr(str);
+	uart_sendstr("\n");
 	for(int i = 0; i < CMD_NUM; i++) {
 		if(strcmp(str, cmd[i].cmdname) == 0) {
 			cmd[i].func();
