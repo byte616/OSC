@@ -3,9 +3,10 @@
 #include "shell.h"
 
 void load_img() {
+	// receive kernel size
 	uart_sendstr("waiting for header...\n");
 	unsigned int kernel_size = uart_recv4();
-
+	
 	// output kernel size
 	char output[64];
 	to_string(output, kernel_size);
@@ -21,15 +22,12 @@ void load_img() {
 	uart_sendstr("kernel loaded finished : )\n");
 
 	// jump to kernel 
-	__asm__ volatile (
-		"ldr x0, =0x80000\n"
-		"br x0\n"
-	);
+	void (*kernel_entry)(void) = (void *)0x80000;
 }
 
 int main() {
 	uart_init();
-	uart_sendstr("booting...");
+	uart_sendstr("booting...\n");
 	load_img();
 	return 0;
 }

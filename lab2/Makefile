@@ -5,6 +5,7 @@ OBJCOPY = aarch64-linux-gnu-objcopy
 
 # build options
 CFLAGS = -Wall -nostdlib -nostartfiles -ffreestanding -Iinclude -mgeneral-regs-only -g
+DFLAG = -s -S
 LINKER = kernel/linker.ld
 BLINKER = bootloader/linker.ld
 
@@ -33,7 +34,7 @@ qemu: $(IMG)
 	qemu-system-aarch64 -M raspi3b -kernel $< -serial null -serial stdio -display none
 
 debug: $(BLIMG)
-	qemu-system-aarch64 -M raspi3b -kernel $< -serial stdio -serial pty -display none
+	qemu-system-aarch64 -M raspi3b -kernel $< -serial null -serial stdio -serial pty -display none $(DFLAG)
 
 %.o: %.s
 	$(CC) -o $@ -c $<
@@ -42,11 +43,11 @@ debug: $(BLIMG)
 	$(CC) -o $@ $(CFLAGS) -c $<
 
 # link to ELF
-$(ELF): $(OBJ)
+$(ELF): $(OBJ) $(KOBJ)
 	$(LD) -T $(LINKER) -o $(ELF) $^
 	
 # ELF to image
-$(IMG): $(ELF)
+$(IMG): $(ELF) 
 	$(OBJCOPY) -O binary $(ELF) $@
 
 # boot loader 

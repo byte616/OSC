@@ -58,11 +58,11 @@ void uart_sendstr(const char *str) {
 }
 
 unsigned int uart_recv4() {
-	char buffer[4];
+	unsigned int ret;
 	for(int i = 0; i < 4; i++) {
-		buffer[i] = uart_recv();
+		ret |= (uart_recv() << (i * 8));
 	}
-	return *((unsigned int*) buffer);
+	return ret;
 }
 
 // interrupt todo
