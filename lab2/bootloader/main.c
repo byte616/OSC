@@ -2,6 +2,8 @@
 #include "utils.h"
 #include "shell.h"
 
+void (*kernel_entry)(void) = (void*)0x80000;
+
 void load_img() {
 	// receive kernel size
 	uart_sendstr("waiting for header...\n");
@@ -20,9 +22,10 @@ void load_img() {
 		kernel_data[i] = uart_recv();
 	}
 	uart_sendstr("kernel loaded finished : )\n");
+	wait(100u);
 
 	// jump to kernel 
-	void (*kernel_entry)(void) = (void *)0x80000;
+	kernel_entry();
 }
 
 int main() {
