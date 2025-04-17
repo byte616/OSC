@@ -21,6 +21,40 @@ void uint2hexstr(char *output, unsigned int num) {
 	output[11] = '\0';
 }
 
+void swap(char *a, char *b) {
+	char tmp = *a;
+	*a = *b;
+	*b = tmp;
+}
+
+void to_string(char *output, unsigned int num) {
+	char *ptr = output;
+	
+	// special case: 0
+	if(num == 0) {
+		*ptr++ = '0';
+		*ptr = '\0';
+		return;
+	}
+
+	// convert into string
+	while(num > 0) {
+		unsigned int val = num % 10;
+		*ptr++ = '0' + val;
+		num /= 10;
+	}
+	*ptr = '\0';
+
+	// reverse string
+	char *head = output;
+	ptr--;
+	while(head < ptr) {
+		swap(head, ptr);
+		head++;
+		ptr--;
+	}
+}
+
 void set(long addr, unsigned int value) {
     volatile unsigned int* point = (unsigned int*)addr;
     *point = value;

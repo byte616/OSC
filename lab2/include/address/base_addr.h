@@ -1,6 +1,7 @@
 #ifndef BASE_ADDR_H
 #define BASE_ADDR_H
 
+#define KERNEL_LOAD   0x80000
 #define MMIO_BASE     0x3F000000
 #define MAILBOX_BASE  MMIO_BASE + 0xb880
 

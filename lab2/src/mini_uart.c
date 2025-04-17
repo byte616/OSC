@@ -57,6 +57,13 @@ void uart_sendstr(const char *str) {
 	}
 }
 
+unsigned int uart_recv4() {
+	char buffer[4];
+	for(int i = 0; i < 4; i++) {
+		buffer[i] = uart_recv();
+	}
+	return *((unsigned int*) buffer);
+}
 
 // interrupt todo
 // 1. enable TX/RX interrupt, 2. check cause
