@@ -1,11 +1,16 @@
-ENTRY(_start)
+ENTRY(_relocation)
+
+_kernel_start = 0x80000;
+_loader_start = 0x60000;
+stack_size = 0x8000;
+heap_size = 0x8000;
 
 SECTIONS
 {
-  . = 0x60000; /* bootloader start address  */
+  . = _loader_start; /* bootloader start address  */
   
   text_start = .;
-  .text : { *(.text.boot) *(.text) }
+  .text : { *(.text.relocation) *(.text.boot) *(.text) }
   . = ALIGN(0x10);
   text_end = .;
 
@@ -24,5 +29,10 @@ SECTIONS
   . = ALIGN(0x10);
   bss_end = .;
 
+  . = bss_end + heap_size;
+
+  _stack_top = . + stack_size;
+  . = _stack_top;
+  PROVIDE(code_size = . - _loader_start);
 }
 

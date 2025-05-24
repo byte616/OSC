@@ -34,7 +34,7 @@ qemu: $(IMG)
 	qemu-system-aarch64 -M raspi3b -kernel $< -serial null -serial stdio -display none
 
 debug: $(BLIMG)
-	qemu-system-aarch64 -M raspi3b -kernel $< -serial null -serial stdio -serial pty -display none $(DFLAG)
+	qemu-system-aarch64 -M raspi3b -kernel $< -serial null -serial pty -serial pty -display none 
 
 %.o: %.s
 	$(CC) -o $@ -c $<
