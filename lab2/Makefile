@@ -57,6 +57,13 @@ $(BLELF): $(BLOBJ)
 $(BLIMG): $(BLELF)	
 	$(OBJCOPY) -O binary $(BLELF)  $@
 
+gen_cpio:
+	mkdir -p rootfs
+	echo "Hello World!" > rootfs/file1.txt
+	echo "test 123" > rootfs/file2.txt
+	cd rootfs && find * | cpio -o -H newc > ../initramfs.cpio
+	cd ..
+
 clean: 
 	rm -f $(OBJ) $(ELF) $(IMG) $(KOBJ) $(BLOBJ) $(BLELF) $(BLIMG)
 

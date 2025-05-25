@@ -2,7 +2,7 @@
 #define SHELL_H
 #include "mini_uart.h"
 
-#define CMD_NUM 4
+#define CMD_NUM 6
 #define CMD_SIZE 256
 
 struct command {

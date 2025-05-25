@@ -1,16 +1,19 @@
 #include "shell.h"
 #include "utils.h"
 #include "mailbox.h"
+#include "cpio.h"
 
 #define BUFFER_SIZE 1024
 char buffer[BUFFER_SIZE];
 
 // command table
-struct command cmd[4] = {
+struct command cmd[CMD_NUM] = {
 	{.cmdname = "help", .info = "print this help menu", .func = cmd_help},
 	{.cmdname = "hello", .info = "print Hello World!", .func = cmd_hello},
 	{.cmdname = "mailbox", .info = "print hardware's infomation", .func = cmd_mailbox},
-	{.cmdname = "reboot", .info = "reboot the device", .func = cmd_reboot}
+	{.cmdname = "reboot", .info = "reboot the device", .func = cmd_reboot},
+	{.cmdname = "ls", .info = "list file", .func = cpio_ls},
+	{.cmdname = "cat", .info = "get the file content", .func = cpio_cat}
 };
 
 
@@ -36,7 +39,7 @@ void cmd_mailbox() {
 
 void cmd_reboot() {
 	uart_sendstr("Rebooting...\n");
-	reset(1200);
+	reset(100);
 	while(1);
 }
 

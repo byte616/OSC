@@ -9,6 +9,14 @@ int strcmp(const char *s1, const char *s2) {
 	return (unsigned char)*s1 - (unsigned char)*s2;
 }
 
+
+int strncmp(const char *s1, const char *s2, int len) {
+	for(int i = 0; i < len; i++) {
+		if(s1[i] != s2[i]) return 1;
+	}
+	return 0;
+}
+
 void uint2hexstr(char *output, unsigned int num) {
 	output[0] = '0';
 	output[1] = 'x';
